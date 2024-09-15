@@ -1,0 +1,12 @@
+{
+  "name": "jp-delisted-codes",
+  "version": "1.0.0",
+  "description": "Japan(JPX) Delisted Stock Code Web API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["japan delisted codes"],
+  "author": "nogamoga",
+  "license": "ISC"
+}
