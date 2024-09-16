@@ -10,7 +10,7 @@
     "japan delisted codes"
   ],
   "author": "nogamoga",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0"
   }
