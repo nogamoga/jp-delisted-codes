@@ -1,6 +1,7 @@
 const fs = require("fs");
-const { setTimeout } = require("timers/promises");
+const { setTimeout } = require("node:timers/promises");
 const cheerio = require("cheerio");
+var _ = require("lodash");
 
 // get html from JPX
 let getDelistedCodesHtml = async (i) => {
@@ -49,7 +50,23 @@ let updateFile = (tableData) => {
   try {
     const current_year = new Date().getFullYear();
     if (html_year == current_year) {
-      fs.writeFileSync(`docs/api/${html_year}.json`, JSON.stringify(tableData));
+      const current_path = `docs/api/${current_year}.json`;
+      if (fs.existsSync(current_path)) {
+        let saved_json = fs.readFileSync(current_path);
+        try {
+          if (
+            _.differenceWith(JSON.parse(saved_json), tableData, _.isEqual)
+              .length > 0
+          ) {
+            // Update on mismatch
+            fs.writeFileSync(current_path, JSON.stringify(tableData));
+          }
+        } catch (e) {
+          fs.writeFileSync(current_path, JSON.stringify(tableData));
+        }
+      } else {
+        fs.writeFileSync(current_path, JSON.stringify(tableData));
+      }
     }
   } catch (err) {
     console.log(err);
