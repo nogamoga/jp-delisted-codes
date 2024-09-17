@@ -4,13 +4,8 @@ const cheerio = require("cheerio");
 var _ = require("lodash");
 
 // get html from JPX
-let getDelistedCodesHtml = async (i) => {
-  let url = "";
-  if (i == 0) {
-    url = `https://www.jpx.co.jp/listing/stocks/delisted/index.html`;
-  } else {
-    url = `https://www.jpx.co.jp/listing/stocks/delisted/archives-0${i}.html`;
-  }
+let getDelistedCodesHtml = async () => {
+  let url = `https://www.jpx.co.jp/listing/stocks/delisted/index.html`;
   const ret = await fetch(url);
 
   if (ret.ok) {
@@ -74,13 +69,10 @@ let updateFile = (tableData) => {
 };
 
 let main = async () => {
-  for (let i = 0; i < 10; i++) {
-    const body = await getDelistedCodesHtml(i);
-    if (body) {
-      const tableData = parseDelistedCodesHtml(body);
-      updateFile(tableData);
-    }
-    await setTimeout(2000);
+  const body = await getDelistedCodesHtml();
+  if (body) {
+    const tableData = parseDelistedCodesHtml(body);
+    updateFile(tableData);
   }
 };
 
