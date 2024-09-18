@@ -31,8 +31,8 @@ jobs:
       - name: Commit & Push
         run: |
           set -x
-          git config user.email "55225552+nogamoga@users.noreply.github.com"
-          git config user.name "nogamoga"
+          git config --local user.email "55225552+nogamoga@users.noreply.github.com"
+          git config --local user.name "nogamoga"
           git add ./docs/api/
           git commit -m "Update data `date +%Y-%m-%d`" -a
           git push
